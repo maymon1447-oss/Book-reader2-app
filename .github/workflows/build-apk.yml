@@ -1,12 +1,12 @@
-name: Build Book Reader APK
+name: Build Book Reader APK v2
 
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
     paths:
-      - 'BookReaderAndroid-ready.zip'
-      - '.github/workflows/build-apk.yml'
+      - 'BookReaderAndroid-ready-v2.zip'
+      - '.github/workflows/build-apk-v2.yml'
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
         run: |
           rm -rf build-src
           mkdir build-src
-          unzip -q BookReaderAndroid-ready.zip -d build-src
+          unzip -q BookReaderAndroid-ready-v2.zip -d build-src
 
       - name: Build debug APK
         working-directory: build-src/BookReaderAndroid
@@ -39,11 +39,11 @@ jobs:
       - name: Collect APK
         run: |
           mkdir -p out
-          cp build-src/BookReaderAndroid/app/build/outputs/apk/debug/app-debug.apk out/BookReader.apk
+          cp build-src/BookReaderAndroid/app/build/outputs/apk/debug/app-debug.apk out/BookReader-v2.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: BookReader-APK
-          path: out/BookReader.apk
+          name: BookReader-APK-v2
+          path: out/BookReader-v2.apk
           if-no-files-found: error
